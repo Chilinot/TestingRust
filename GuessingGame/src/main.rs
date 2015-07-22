@@ -9,23 +9,30 @@ fn main() {
 
     let secret = rand::thread_rng().gen_range(1, 101);
 
-    // Debug
-    println!("Secret number: {}", secret);
+    // Infinite loop!
+    loop {
+        println!("Please enter your guess:");
 
-    println!("Please enter your guess:");
+        let mut guess = String::new();
 
-    let mut guess = String::new();
+        io::stdin().read_line(&mut guess)
+            .ok()
+            .expect("Failed to read line!");
 
-    io::stdin().read_line(&mut guess)
-        .ok()
-        .expect("Failed to read line!");
+        // Parse guess to unsigned 32-bit int
+        // Continue on error
+        let guess: u32 = match guess.trim().parse() {
+            Ok(number) => number,
+            Err(_) => continue,
+        };
 
-    // Debug
-    println!("You guessed: {}", guess);
-
-    match guess.cmp(&secret) {
-        Ordering::Less => println!("Too small!"),
-        Ordering::Greater => println!("Too big!"),
-        Ordering::Equal => println!("Correct!"),
+        match guess.cmp(&secret) {
+            Ordering::Less => println!("Too small!"),
+            Ordering::Greater => println!("Too big!"),
+            Ordering::Equal => {
+                println!("Correct!");
+                break;
+            }
+        }
     }
 }
