@@ -39,7 +39,7 @@ fn main() {
         Mutex::new(()),
         Mutex::new(()),
         Mutex::new(()),
-        ]});
+    ]});
 
     let philosophers = vec![
         Philosopher::new("First", 0, 1),
